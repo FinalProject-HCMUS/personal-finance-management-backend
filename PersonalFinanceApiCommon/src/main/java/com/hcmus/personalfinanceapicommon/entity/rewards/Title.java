@@ -1,6 +1,7 @@
 package com.hcmus.personalfinanceapicommon.entity.rewards;
 
 import com.hcmus.personalfinanceapicommon.entity.reward_user.TitleUser;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,6 @@ public class Title extends Reward {
     private String title;
     private String description;
 
-    @OneToMany(mappedBy = "title")
+    @OneToMany(mappedBy = "title", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TitleUser> titleUsers;
 }

@@ -3,10 +3,7 @@ package com.hcmus.personalfinanceapicommon.entity.reward_user;
 import com.hcmus.personalfinanceapicommon.entity.IdBasedEntity;
 import com.hcmus.personalfinanceapicommon.entity.User;
 import com.hcmus.personalfinanceapicommon.entity.rewards.AvatarFrame;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -19,11 +16,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AvatarFrameUser extends IdBasedEntity {
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "avatar_frame_id")
     private AvatarFrame avatarFrame;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     private User user;
 

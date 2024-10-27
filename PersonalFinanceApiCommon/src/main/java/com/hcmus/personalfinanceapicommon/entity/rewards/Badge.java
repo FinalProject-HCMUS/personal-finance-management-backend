@@ -1,6 +1,7 @@
 package com.hcmus.personalfinanceapicommon.entity.rewards;
 
 import com.hcmus.personalfinanceapicommon.entity.reward_user.BadgeUser;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToMany;
@@ -21,6 +22,6 @@ public class Badge extends  Reward {
     private String description;
     private String image;
 
-    @OneToMany(mappedBy = "badge")
+    @OneToMany(mappedBy = "badge", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BadgeUser> badgeUsers;
 }

@@ -31,6 +31,6 @@ public class Achievement extends IdBasedEntity {
     @Column()
     private AchievementType achievementType;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "achievement", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> user;
 }

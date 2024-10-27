@@ -3,6 +3,7 @@ package com.hcmus.personalfinanceapicommon.entity.rewards;
 import com.hcmus.personalfinanceapicommon.entity.IdBasedEntity;
 import com.hcmus.personalfinanceapicommon.entity.reward_user.AvatarFrameUser;
 import com.hcmus.personalfinanceapicommon.entity.reward_user.AvatarUser;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,6 @@ public class AvatarFrame extends Reward {
     private String description;
     private String image;
 
-    @OneToMany(mappedBy = "avatarFrame")
+    @OneToMany(mappedBy = "avatarFrame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AvatarFrameUser> avatarFrameUsers;
 }
