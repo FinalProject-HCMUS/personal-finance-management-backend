@@ -9,5 +9,6 @@
 	<description>PersonalFinanceManagementBackend</description>
 	<modules>
 		<module>PersonalFinanceApiCommon</module>
+		<module>PersonalFinanceApiService</module>
 	</modules>
 </project>
