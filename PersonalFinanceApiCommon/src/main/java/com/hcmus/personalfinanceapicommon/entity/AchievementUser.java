@@ -15,11 +15,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AchievementUser extends IdBasedEntity{
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "achievement_id")
     private Achievement achievement;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     private User user;
 
