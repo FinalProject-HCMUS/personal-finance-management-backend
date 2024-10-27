@@ -18,39 +18,28 @@ import java.util.Date;
 @Builder
 public class User extends IdBasedEntity {
 
-    @Column(nullable = false, length = 50)
-    @NotNull
-    @Size(max = 50)
+    @Column()
     private String name;
 
-    @Column(nullable = false, unique = true, length = 100)
-    @NotNull
-    @Email
-    @Size(max = 100)
+    @Column()
     private String email;
 
-    @Column(nullable = false)
-    @NotNull
+    @Column()
     private String password;
 
-    @Column(length = 15)
-    @Size(max = 15)
+    @Column()
     private String phone;
 
-    @Column(nullable = false)
-    @NotNull
+    @Column()
     private Date dob;
 
-    @Column(length = 255)
-    @Size(max = 255)
+    @Column()
     private String avatar;
 
-    @Column(name = "total_score", nullable = false)
-    @NotNull
+    @Column(name = "total_score")
     private Long totalScore;
 
-    @Column(name = "total_XP", nullable = false)
-    @NotNull
+    @Column(name = "total_XP")
     private Long totalXP;
 
     private int level;

@@ -17,28 +17,21 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transaction extends IdBasedEntity {
-
-    @Column(nullable = false)
-    @NotNull
-    @PositiveOrZero
+public class    Transaction extends IdBasedEntity {
+    @Column()
     private double amount;
 
-    @Column(nullable = false)
-    @NotNull
+    @Column()
     private Date date;
 
-    @Column(length = 255)
-    @Size(max = 255)
+    @Column()
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    @NotNull
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @NotNull
+    @JoinColumn(name = "user_id")
     private User user;
 }

@@ -19,13 +19,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScoreUser extends IdBasedEntity {
-
     @ManyToOne
     @JoinColumn(name = "score_id")
     private Score score;
-    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    private Date date;
 }

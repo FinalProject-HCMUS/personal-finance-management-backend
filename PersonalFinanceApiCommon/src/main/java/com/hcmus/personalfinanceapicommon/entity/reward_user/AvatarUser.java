@@ -19,7 +19,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AvatarUser extends IdBasedEntity {
-
     @ManyToOne
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
