@@ -8,6 +8,9 @@ import lombok.*;
 
 import java.util.Date;
 
+/**
+ * The persistent class for the AvatarUser database table.
+ */
 @Entity
 @Table(name = "avatar_user")
 @Getter
@@ -16,14 +19,21 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AvatarUser extends IdBasedEntity {
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /** The avatar. */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /** The user. */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    /** Indicates if this avatar is the default for the user. */
+    @Column(name = "is_default")
     private boolean isDefault;
+
+    /** The date when the avatar was assigned to the user. */
+    @Column(name = "date")
     private Date date;
 }

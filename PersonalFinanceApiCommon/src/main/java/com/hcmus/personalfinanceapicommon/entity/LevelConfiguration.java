@@ -2,10 +2,7 @@ package com.hcmus.personalfinanceapicommon.entity;
 
 import com.hcmus.personalfinanceapicommon.entity.rewards.Badge;
 import com.hcmus.personalfinanceapicommon.entity.rewards.Title;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +18,11 @@ public class LevelConfiguration extends  IdBasedEntity{
     private int level;
     private long XPThreshold;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "badge_id")
     private Badge badge;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "title_id")
     private Title title;
 

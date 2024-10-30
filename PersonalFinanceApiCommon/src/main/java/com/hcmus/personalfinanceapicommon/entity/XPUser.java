@@ -20,7 +20,7 @@ public class XPUser extends IdBasedEntity {
     @Enumerated(EnumType.STRING)
     private XPType xpType;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }

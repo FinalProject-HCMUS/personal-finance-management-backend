@@ -8,6 +8,9 @@ import lombok.*;
 
 import java.util.Date;
 
+/**
+ * The persistent class for the ScoreUser database table.
+ */
 @Entity
 @Table(name = "score_user")
 @Getter
@@ -16,13 +19,18 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScoreUser extends IdBasedEntity {
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+    /** The score. */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "score_id")
     private Score score;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /** The user. */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    /** The date when the score was assigned to the user. */
+    @Column(name = "date")
     private Date date;
 }
