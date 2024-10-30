@@ -17,7 +17,6 @@ import lombok.*;
 import java.util.Date;
 import java.util.List;
 
-
 @Entity
 @Getter
 @Setter
@@ -26,22 +25,16 @@ import java.util.List;
 @Builder
 public class User extends IdBasedEntity {
 
-    @Column()
     private String name;
 
-    @Column()
     private String email;
 
-    @Column()
     private String password;
 
-    @Column()
     private String phone;
 
-    @Column()
     private Date dob;
 
-    @Column()
     private String avatar;
 
     @Column(name = "total_score")
@@ -79,5 +72,4 @@ public class User extends IdBasedEntity {
     @OneToMany(mappedBy = "user")
     private List<Budget> budget;
 
-    //cascade = CascadeType.ALL, orphanRemoval = true
 }
