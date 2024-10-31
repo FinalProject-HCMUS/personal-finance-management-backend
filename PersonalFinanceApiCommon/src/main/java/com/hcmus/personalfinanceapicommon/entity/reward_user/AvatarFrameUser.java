@@ -8,6 +8,9 @@ import lombok.*;
 
 import java.util.Date;
 
+/**
+ * The persistent class for the AvatarFrameUser database table.
+ */
 @Entity
 @Table(name = "score_user")
 @Getter
@@ -16,14 +19,21 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AvatarFrameUser extends IdBasedEntity {
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /** The avatar frame. */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "avatar_frame_id")
     private AvatarFrame avatarFrame;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /** The user. */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    /** Indicates if this avatar frame is the default for the user. */
+    @Column(name = "is_default")
     private boolean isDefault;
+
+    /** The date when the avatar frame was assigned to the user. */
+    @Column(name = "date")
     private Date date;
 }

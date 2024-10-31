@@ -11,15 +11,23 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * The persistent class for the Title database table.
+ */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Title extends Reward {
+
+    /** The title of the reward. */
     private String title;
+
+    /** The description of the title. */
     private String description;
 
+    /** The list of TitleUser entities associated with this title. */
     @OneToMany(mappedBy = "title", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TitleUser> titleUsers;
 }

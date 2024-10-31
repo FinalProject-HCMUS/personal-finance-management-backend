@@ -6,11 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * The persistent class for the Score database table.
+ */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Score extends Reward{
+public class Score extends Reward {
+
+    /** The points associated with the score. */
     private double point;
 }

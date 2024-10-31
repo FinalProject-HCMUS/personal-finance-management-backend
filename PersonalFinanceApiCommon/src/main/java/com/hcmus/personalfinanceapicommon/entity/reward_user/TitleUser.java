@@ -8,6 +8,9 @@ import lombok.*;
 
 import java.util.Date;
 
+/**
+ * The persistent class for the TitleUser database table.
+ */
 @Entity
 @Table(name = "title_user")
 @Getter
@@ -16,14 +19,22 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TitleUser extends IdBasedEntity {
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+    /** The title. */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "title_id")
     private Title title;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /** The user. */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    /** Indicates if this title is the default for the user. */
+    @Column(name = "is_default")
     private boolean isDefault;
+
+    /** The date when the title was assigned to the user. */
+    @Column(name = "date")
     private Date date;
 }
