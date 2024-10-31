@@ -12,25 +12,34 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * The persistent class for the Achievement database table.
+ */
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Achievement extends IdBasedEntity {
+
+    /** The name of the achievement. */
     @Column()
     private String name;
 
+    /** The description of the achievement. */
     @Column()
     private String description;
 
+    /** The threshold value for the achievement. */
     @Column()
     private double threshold;
 
+    /** The type of the achievement. */
     @Enumerated(EnumType.STRING)
-    @Column()
+    @Column(name = "achievement_type")
     private AchievementType achievementType;
 
+    /** The list of AchievementUser entities associated with this achievement. */
     @OneToMany(mappedBy = "achievement", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AchievementUser> achievementUser;
 }

@@ -11,12 +11,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * The abstract base class for all reward entities.
+ */
 @MappedSuperclass
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class Reward extends IdBasedEntity {
+
+   /** The achievement associated with this reward. */
    @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "achievement_id", nullable = false)
    protected Achievement achievement;
