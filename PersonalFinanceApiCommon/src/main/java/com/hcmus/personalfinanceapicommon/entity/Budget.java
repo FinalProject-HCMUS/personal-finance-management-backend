@@ -1,9 +1,6 @@
 package com.hcmus.personalfinanceapicommon.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +19,6 @@ import java.util.Date;
 public class Budget extends IdBasedEntity {
 
     /** The total amount allocated for the budget. */
-    @Column()
     private double amount;
 
     /** The amount already spent from the budget. */
@@ -38,7 +34,6 @@ public class Budget extends IdBasedEntity {
     private Date endDate;
 
     /** The description of the budget. */
-    @Column()
     private String description;
 
     /** The category associated with the budget. */

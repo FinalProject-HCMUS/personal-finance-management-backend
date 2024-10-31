@@ -2,9 +2,6 @@ package com.hcmus.personalfinanceapicommon.entity;
 
 import com.hcmus.personalfinanceapicommon.enums.AchievementType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,15 +20,12 @@ import java.util.List;
 public class Achievement extends IdBasedEntity {
 
     /** The name of the achievement. */
-    @Column()
     private String name;
 
     /** The description of the achievement. */
-    @Column()
     private String description;
 
     /** The threshold value for the achievement. */
-    @Column()
     private double threshold;
 
     /** The type of the achievement. */

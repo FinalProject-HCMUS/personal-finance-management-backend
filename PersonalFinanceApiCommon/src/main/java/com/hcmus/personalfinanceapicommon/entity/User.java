@@ -4,14 +4,9 @@ import com.hcmus.personalfinanceapicommon.entity.reward_user.AvatarFrameUser;
 import com.hcmus.personalfinanceapicommon.entity.reward_user.AvatarUser;
 import com.hcmus.personalfinanceapicommon.entity.reward_user.BadgeUser;
 import com.hcmus.personalfinanceapicommon.entity.reward_user.TitleUser;
-import com.hcmus.personalfinanceapicommon.entity.rewards.AvatarFrame;
-import com.hcmus.personalfinanceapicommon.entity.rewards.Badge;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Date;
