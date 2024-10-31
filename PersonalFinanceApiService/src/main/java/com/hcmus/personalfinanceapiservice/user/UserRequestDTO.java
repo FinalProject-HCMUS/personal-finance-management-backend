@@ -1,4 +1,4 @@
 package com.hcmus.personalfinanceapiservice.user;
 
-public class UserDTO {
+public class UserRequestDTO {
 }
