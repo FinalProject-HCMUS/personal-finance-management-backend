@@ -6,6 +6,7 @@
 	<artifactId>PersonalFinanceManagementBackend</artifactId>
 	<version>1.0.0</version>
 	<name>PersonalFinanceManagementBackend</name>
+	<packaging>pom</packaging>
 	<description>PersonalFinanceManagementBackend</description>
 	<modules>
 		<module>PersonalFinanceApiCommon</module>
