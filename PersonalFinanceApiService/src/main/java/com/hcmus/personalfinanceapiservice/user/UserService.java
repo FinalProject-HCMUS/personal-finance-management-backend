@@ -29,6 +29,7 @@ public class UserService {
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
+    private final OtpService otpService;
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) throws Exception
     {
         Optional<User> existedUser = userRepository.findByEmail(userRequestDTO.getEmail());
@@ -86,6 +87,16 @@ public class UserService {
             throw new DataNotFoundException("Email does not exist in the system!");
         }
         String otp = emailService.generateOtp();
+        otpService.storeOtp(email,otp);
         emailService.sendOtpEmail(email, otp);
+    }
+    public boolean verifyOTP(String otp,String email) throws Exception
+    {
+        Optional<User> existedUser = userRepository.findByEmail(email);
+        if(existedUser.isEmpty())
+        {
+            throw new DataNotFoundException("Email does not exist in the system!");
+        }
+        return otpService.verifyOtp(otp,email);
     }
 }

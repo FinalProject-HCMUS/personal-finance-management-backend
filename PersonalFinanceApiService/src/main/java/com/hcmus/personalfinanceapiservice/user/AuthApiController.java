@@ -2,6 +2,7 @@ package com.hcmus.personalfinanceapiservice.user;
 
 import com.hcmus.personalfinanceapiservice.user.dto.ForgotPasswordDTO;
 import com.hcmus.personalfinanceapiservice.user.dto.UserLoginDTO;
+import com.hcmus.personalfinanceapiservice.user.dto.VerifyOtpDTO;
 import com.hcmus.personalfinanceapiservice.user.response.LoginResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,18 @@ public class AuthApiController {
             userService.sendOTP(request.getEmail());
             return ResponseEntity.ok("Send OTP successfully");
 
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PostMapping("/verify")
+    public ResponseEntity<String> verifyOtp(@RequestBody VerifyOtpDTO request) {
+        try {
+            boolean isValidOtp = userService.verifyOTP(request.getOtp(),request.getEmail());
+            if (!isValidOtp) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP is wrong");
+            }
+            return ResponseEntity.ok("OTP verified successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
