@@ -5,8 +5,12 @@ import com.hcmus.personalfinanceapiservice.exception_handler.DataNotFoundExcepti
 import com.hcmus.personalfinanceapiservice.user.dto.UpdateUserDTO;
 import com.hcmus.personalfinanceapiservice.user.dto.UserRequestDTO;
 import com.hcmus.personalfinanceapiservice.user.dto.UserResponseDTO;
+import com.hcmus.personalfinanceapiservice.user.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,8 @@ import java.util.Optional;
 public class UserService {
     private final  UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final AuthenticationManager authenticationManager;
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) throws Exception
     {
         Optional<User> existedUser = userRepository.findByEmail(userRequestDTO.getEmail());
@@ -52,5 +58,21 @@ public class UserService {
         user.setDob(Date.valueOf(LocalDate.parse(userDTO.getDateOfBirth(),formatter)));
         user.setAvatar(userDTO.getAvatar());
         return UserResponseDTO.fromUser(userRepository.save(user));
+    }
+
+    public String login(String email, String password) throws Exception {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(optionalUser.isEmpty())
+        {
+            throw new DataNotFoundException("Invalid email!");
+        }
+        User existedUser = optionalUser.get();
+        if(!passwordEncoder.matches(password,existedUser.getPassword()))
+        {
+            throw new BadCredentialsException("Invalid password!");
+        }
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(email,password);
+        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        return jwtTokenUtil.generateToken(existedUser);
     }
 }

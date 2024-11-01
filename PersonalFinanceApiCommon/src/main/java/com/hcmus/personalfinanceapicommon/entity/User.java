@@ -8,7 +8,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User extends IdBasedEntity {
+public class User extends IdBasedEntity implements UserDetails {
 
     /** The name of the user. */
     private String name;
@@ -87,4 +90,14 @@ public class User extends IdBasedEntity {
     /** The list of Budget entities associated with the user. */
     @OneToMany(mappedBy = "user")
     private List<Budget> budget;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }

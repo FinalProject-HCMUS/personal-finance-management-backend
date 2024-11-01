@@ -1,11 +1,18 @@
 package com.hcmus.personalfinanceapiservice.security;
 
+import com.hcmus.personalfinanceapicommon.entity.User;
+import com.hcmus.personalfinanceapiservice.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,18 +24,11 @@ import org.springframework.web.cors.CorsConfigurationSource;
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
-
+    private final UserRepository userRepository;
     private final CorsConfigurationSource corsConfigurationSource;
 
-    /**
-     * Constructor to initialize WebSecurityConfig with a CorsConfigurationSource.
-     *
-     * @param corsConfigurationSource the CORS configuration source
-     */
-    public WebSecurityConfig(CorsConfigurationSource corsConfigurationSource) {
-        this.corsConfigurationSource = corsConfigurationSource;
-    }
 
     /**
      * Bean for password encoding using BCrypt.
@@ -68,5 +68,21 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable());
 
         return http.build();
+    }
+    @Bean
+    public UserDetailsService userDetailService() {
+        return email ->
+        {
+            User existedUser = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new UsernameNotFoundException("Cannot find user with email = " + email));
+            return existedUser;
+        };
+    }
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 }
