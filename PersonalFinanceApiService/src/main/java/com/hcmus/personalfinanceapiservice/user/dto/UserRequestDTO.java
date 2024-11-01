@@ -1,4 +1,4 @@
-package com.hcmus.personalfinanceapiservice.user;
+package com.hcmus.personalfinanceapiservice.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequestDTO {
+    @NotBlank(message = "Name is required")
     @JsonProperty("name")
     private String name;
     @JsonProperty("email")

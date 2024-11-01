@@ -1,8 +1,7 @@
-package com.hcmus.personalfinanceapiservice.user;
+package com.hcmus.personalfinanceapiservice.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hcmus.personalfinanceapicommon.entity.User;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
