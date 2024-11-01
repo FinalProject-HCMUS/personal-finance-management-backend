@@ -8,6 +8,8 @@ import com.hcmus.personalfinanceapiservice.user.dto.UserResponseDTO;
 import com.hcmus.personalfinanceapiservice.user.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +28,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) throws Exception
     {
         Optional<User> existedUser = userRepository.findByEmail(userRequestDTO.getEmail());
@@ -74,5 +77,15 @@ public class UserService {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(email,password);
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         return jwtTokenUtil.generateToken(existedUser);
+    }
+    public void sendOTP(String email) throws Exception
+    {
+        Optional<User> existedUser = userRepository.findByEmail(email);
+        if(existedUser.isEmpty())
+        {
+            throw new DataNotFoundException("Email does not exist in the system!");
+        }
+        String otp = emailService.generateOtp();
+        emailService.sendOtpEmail(email, otp);
     }
 }
